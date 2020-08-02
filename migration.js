@@ -1,8 +1,11 @@
 const { sequelize } = require('./app/models/index');
 
-async function migrate() {
-    await sequelize.sync();
-    console.log('Database migrated successfully!');
+function migrate() {
+    sequelize.sync({ force: true }).then(() => {
+        console.log('Database migrated successfully!');
+    }).catch((error) => {
+        console.log(error);
+    });
 }
 
 migrate();

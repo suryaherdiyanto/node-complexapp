@@ -7,7 +7,10 @@ block content
                 h1.display-3 Remember Writing?
                     p.lead.text-muted Are you sick of short tweets and impersonal &ldquo;shared&rdquo; posts that are reminiscent of the late 90&rsquo;s email forwards? We believe getting back to actually writing is the key to enjoying the internet again.
             .col-lg-5.pl-lg-5.pb-3.py-lg-5
-                form#registration-form(action='#' method='POST')
+                if success[0]
+                    +alert(success[0])
+                    
+                form#registration-form(action='/register-user' method='POST')
                     .form-group
                     label.text-muted.mb-1(for='username-register')
                         small Username

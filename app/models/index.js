@@ -7,7 +7,8 @@ const path = require('path');
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
-    dialect: 'mysql'
+    dialect: 'mysql',
+    logging: (process.env.DB_LOG == 1) ? true : false
 });
 
 let db = {};
