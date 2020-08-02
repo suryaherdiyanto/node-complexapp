@@ -23,6 +23,15 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Set global variable to views
+app.use(function(req, res, next) {
+    res.locals = {
+        session: req.session
+    };
+
+    next();
+})
+
 app.set('view engine', 'pug');
 app.set('views', './views');
 

@@ -9,6 +9,9 @@ block content
             .col-lg-5.pl-lg-5.pb-3.py-lg-5
                 if success[0]
                     +alert(success[0])
+                
+                if error[0]
+                    +alert(error[0], 'danger')
                     
                 form#registration-form(action='/register-user' method='POST')
                     .form-group
