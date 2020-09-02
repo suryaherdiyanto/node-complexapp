@@ -2,3 +2,6 @@ mixin alert(message, type='success')
     div(class=`alert alert-${type} alert-dismissible fade show`)= message
         button(type="button" class="close" data-dismiss="alert" aria-label="Close")
             span(aria-hidden="true") &times;
+
+mixin fieldError(message)
+    span(class="badge badge-danger")= message

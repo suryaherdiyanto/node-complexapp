@@ -6,7 +6,7 @@ exports.homePage = function(req, res) {
         res.redirect('/dashboard');
     }
 
-    res.render('pages/home', { session: req.session, success: req.flash('success'), error: req.flash('error') });
+    res.render('pages/home', { session: req.session, success: req.flash('success'), error: req.flash('error'), validationErrors: req.validator.flashErrors(), inputs: req.flash('inputs') });
 }
 
 exports.test = function(req, res) {
@@ -45,25 +45,34 @@ exports.login = async function(req, res) {
 }
 
 exports.register = async function(req, res) {
-    console.time('Register time');
     bcrypt.genSaltSync(10);
+    let { username, email, password } = req.body;
 
-    const { username, email } = req.body;
-    let { password } = req.body;
+    const validator = req.validator.build({ username, email, password }, {
+        'username': 'required|string',
+        'email': 'required|string|email',
+        'password': 'required|min:6'
+    });
+
+    validator.validate();
+
+    if (validator.hasError()) {
+        req.flash('inputs', { username, email, password });
+        return res.redirect('/');
+    }
 
     password = bcrypt.hashSync(password);
 
-    try {
-        await User.create({ username, email, password });
-        
+    User.create({ username, email, password }).then(() => {
         req.flash('success', 'Register successfully!');
         req.session.save(() => {
-            console.timeEnd('Register time');
-
-            res.redirect('/');
+            return res.redirect('/');
         });
-    } catch (error) {
+    }).catch(() => {
+        if (error === 'validation error') {
+            res.redirect('/');
+        }
         res.end(error.toString());
-    }
+    });
 
 }

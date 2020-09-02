@@ -17,13 +17,22 @@ block content
                     .form-group
                     label.text-muted.mb-1(for='username-register')
                         small Username
-                    input#username-register.form-control(name='username' type='text' placeholder='Pick a username' autocomplete='off')
+                    input#username-register.form-control(name='username' type='text' placeholder='Pick a username' autocomplete='off' value=(inputs[0]) ? inputs[0].username : '')
+                    if validationErrors && validationErrors.username
+                        +fieldError(validationErrors.username[0])
+
                     .form-group
                     label.text-muted.mb-1(for='email-register')
                         small Email
-                    input#email-register.form-control(name='email' type='text' placeholder='you@example.com' autocomplete='off')
+                    input#email-register.form-control(name='email' type='text' placeholder='you@example.com' autocomplete='off' value=(inputs[0]) ? inputs[0].email : '')
+                    if validationErrors && validationErrors.email
+                        +fieldError(validationErrors.email[0])
+                    
                     .form-group
                     label.text-muted.mb-1(for='password-register')
                         small Password
                     input#password-register.form-control(name='password' type='password' placeholder='Create a password')
+                    if validationErrors && validationErrors.password
+                        +fieldError(validationErrors.password[0])
+
                     button.py-3.mt-4.btn.btn-lg.btn-success.btn-block(type='submit') Sign up for OurApp

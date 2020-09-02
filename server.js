@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const router = require('./app/route');
 const flash = require('connect-flash');
+const { validation } = require('@kodinggen/express-validator');
 
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -22,6 +23,7 @@ app.use(flash());
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(validation());
 
 // Set global variable to views
 app.use(function(req, res, next) {
