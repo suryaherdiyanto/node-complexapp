@@ -20,9 +20,28 @@ html(lang="en")
 
         include partials/footer.pug
 
+        #avatarModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="avatarModalLabel" aria-hidden="true")
+            .modal-dialog(role="document")
+                .modal-content
+                    .modal-header
+                        h5#avatarModalLabel.modal-title Modal title
+                        button.close(type="button" data-dismiss="modal" aria-label="Close")
+                        span(aria-hidden="true") ×
+                    .modal-body
+                        form(id="avatarForm" action="/save-avatar" method="POST" enctype="multipart/form-data")
+                            .form-group
+                                label(for="avatar") Change Your Avatar
+                                br
+                                input(type="file" name="avatar" accept=".jpg,.png")
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-dismiss="modal") Close
+                        button.btn.btn-primary.btn-save-avatar(type="button") Save changes
+
+
         script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous')
         script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous')
+        script(src="/js/main.js")
         script.
             $('[data-toggle="tooltip"]').tooltip()
         

@@ -9,6 +9,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const { sequelize } = require('./app/models');
 
+app.locals.rootPath = __dirname;
 app.use(session({
     secret: 'fyling cat',
     resave: false,

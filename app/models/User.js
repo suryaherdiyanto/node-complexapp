@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
         username: { type: DataTypes.STRING, unique: true, allowNull: false},
         email: { type: DataTypes.STRING, unique: true, allowNull: false},
         password: { type: DataTypes.STRING,  allowNull: false},
+        avatar: { type: DataTypes.STRING.BINARY, allowNull: true}
     });
 
     User.prototype.test = function() {

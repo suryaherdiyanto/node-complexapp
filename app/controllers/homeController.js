@@ -2,6 +2,7 @@ const { User } = require('../models').db;
 const bcrypt = require('bcryptjs');
 
 exports.homePage = function(req, res) {
+    console.log(req.app.locals.rootPath);
     if (req.session.user) {
         res.redirect('/dashboard');
     }
