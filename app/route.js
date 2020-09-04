@@ -16,6 +16,8 @@ const upload = multer({ storage: storage });
 
 const homeController = require('./controllers/homeController');
 const dashboardController = require('./controllers/dashboardController');
+const postController = require('./controllers/postController');
+const middleware = require('../app/middleware');
 
 router.get('/', homeController.homePage);
 router.get('/test', homeController.test);
@@ -30,5 +32,8 @@ router.get('/profile', function(req, res) {
 });
 
 router.post('/save-avatar', upload.single('avatar'), dashboardController.saveAvatar);
+
+router.get('/create-post', middleware.auth, postController.create);
+router.post('/create-post', middleware.auth, postController.store);
 
 module.exports = router;

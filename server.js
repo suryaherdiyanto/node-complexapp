@@ -40,6 +40,8 @@ app.set('views', './views');
 
 app.use('/', router);
 
+console.log(process.env.NODE_ENV);
+
 sequelize.authenticate().then((error) => {
     if (error) throw error;
 

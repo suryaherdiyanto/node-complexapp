@@ -7,8 +7,10 @@ header.header-bar.mb-3
         i.fas.fa-search
       span.text-white.mr-2.header-chat-icon(title='Chat' data-toggle='tooltip' data-placement='bottom')
         i.fas.fa-comment
+      a.text-white.mr-2(href="") My Post
+        
       a.mr-2(href='#')
         img(title='My Profile' data-toggle='modal' data-target="#avatarModal" data-placement='bottom' style='width: 32px; height: 32px; border-radius: 16px;' src='/uploads/'+session.user.avatar)
-      a.btn.btn-sm.btn-success.mr-2(href='#') Create Post
+      a.btn.btn-sm.btn-success.mr-2(href='/create-post') Create Post
       form.d-inline(action='/logout' method='POST')
         button.btn.btn-sm.btn-secondary Sign Out

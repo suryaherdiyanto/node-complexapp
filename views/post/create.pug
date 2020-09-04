@@ -1,0 +1,21 @@
+extends ../master
+
+block content
+    .container.py-md-5.container--narrow
+        if(success)
+            +alert(success)
+
+        form(action='/create-post' method='POST')
+            .form-group
+                label.text-muted.mb-1.w-100(for='post-title')
+                    small Title
+                    input#post-title.form-control.form-control-lg.form-control-title(name='title' type='text' placeholder='' autocomplete='off')
+                    if (validationErrors && validationErrors.title)
+                        +fieldError(validationErrors.title[0])
+            .form-group
+                label.text-muted.mb-1.w-100(for='post-body')
+                    small Body Content
+                    textarea#post-body.body-content.tall-textarea.form-control(name='body' type='text')
+                    if (validationErrors && validationErrors.body)
+                        +fieldError(validationErrors.body[0])
+            button.btn.btn-primary Save New Post
