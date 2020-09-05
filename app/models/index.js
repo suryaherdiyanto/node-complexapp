@@ -24,4 +24,12 @@ models.forEach( item => {
     db[Model.name] = Model;
 });
 
+// Setting up association
+db['Post'].belongsTo(db['User'], {
+    foreignKey: 'user_id'
+});
+db['User'].hasMany(db['Post'], {
+    foreignKey: 'user_id'
+});
+
 module.exports = { db, sequelize, Sequelize };

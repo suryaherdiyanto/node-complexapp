@@ -3,6 +3,7 @@ const app = express();
 const router = require('./app/route');
 const flash = require('connect-flash');
 const { validation } = require('@kodinggen/express-validator');
+const moment = require('moment');
 
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -28,8 +29,12 @@ app.use(validation());
 
 // Set global variable to views
 app.use(function(req, res, next) {
+
     res.locals = {
-        session: req.session
+        session: req.session,
+        error: req.flash('error')[0],
+        success: req.flash('success')[0],
+        moment: moment
     };
 
     next();

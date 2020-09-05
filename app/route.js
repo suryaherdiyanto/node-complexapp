@@ -35,5 +35,6 @@ router.post('/save-avatar', upload.single('avatar'), dashboardController.saveAva
 
 router.get('/create-post', middleware.auth, postController.create);
 router.post('/create-post', middleware.auth, postController.store);
+router.get('/post/:id', middleware.auth, postController.show);
 
 module.exports = router;

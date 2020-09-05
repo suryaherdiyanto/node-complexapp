@@ -3,7 +3,7 @@ const { post } = require("../route");
 const { Post } = require('../models').db;
 
 exports.create = function(req, res) {
-    return res.render('post/create', { validationErrors: req.validator.flashErrors(), success: req.flash('success')[0] });
+    return res.render('post/create', { validationErrors: req.validator.flashErrors() });
 }
 
 exports.store = function(req, res) {
@@ -19,11 +19,23 @@ exports.store = function(req, res) {
         return res.redirect('/create-post');
     }
 
-    Post.create({ title: title, body: body, user_id: req.session.user.id }).then(() => {
+    Post.create({ title: title, body: body, user_id: req.session.user.id }).then((post) => {
         req.flash('success', 'Post has been created!');
-        return res.redirect('/create-post');
+        return res.redirect(`/post/${post.id}`);
     }).catch((error) => {
         return res.end('Error creating post ' + error);
     });
 
+}
+
+exports.show = async function(req, res) {
+    try {
+
+        let post = await Post.findOne({ where: { id: req.params.id } });
+        let userPost = await post.getUser();
+    
+        return res.render('post/show', { post: post, user: userPost });
+    } catch(error) {
+        return res.end('Whoop something went wrong here ' + error);
+    }
 }

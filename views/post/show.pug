@@ -1,0 +1,22 @@
+extends ../master
+
+block content
+    include ../partials/alert
+    
+    .d-flex.justify-content-between
+        h2= post.title
+        if post.user_id == session.user.id
+            span.pt-2
+                a.text-primary.mr-2(href='#' data-toggle='tooltip' data-placement='top' title='Edit')
+                    i.fas.fa-edit
+                form.delete-post-form.d-inline(action='#' method='POST')
+                    button.delete-post-button.text-danger(data-toggle='tooltip' data-placement='top' title='Delete')
+                        i.fas.fa-trash
+
+    p.text-muted.small.mb-4
+        a(href='#')
+            img.avatar-tiny(src='/uploads/'+user.avatar)
+        |       Posted by 
+        a(href='#') #{user.username} 
+        |  on #{moment(post.createdAt).format('MMM DD, YYYY')}
+    .body-content= post.body
