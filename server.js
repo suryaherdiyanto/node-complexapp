@@ -34,6 +34,7 @@ app.use(function(req, res, next) {
         session: req.session,
         error: req.flash('error')[0],
         success: req.flash('success')[0],
+        validationErrors: req.validator.flashErrors(),
         moment: moment
     };
 
