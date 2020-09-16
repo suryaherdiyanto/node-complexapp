@@ -26,6 +26,7 @@ router.post('/login', homeController.login);
 
 router.get('/dashboard', dashboardController.dashboard);
 router.post('/logout', dashboardController.logout);
+router.get('/user/:id/posts', dashboardController.userPosts);
 
 router.get('/profile', function(req, res) {
     res.send('This is a profile page!');
@@ -38,5 +39,6 @@ router.post('/create-post', middleware.auth, postController.store);
 router.get('/post/:id', middleware.auth, postController.show);
 router.get('/post/:id/edit', middleware.auth, postController.edit);
 router.post('/post/:id/update', middleware.auth, postController.update);
+router.post('/post/:id/delete', middleware.auth, postController.delete);
 
 module.exports = router;

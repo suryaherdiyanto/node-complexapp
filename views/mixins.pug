@@ -5,3 +5,11 @@ mixin alert(message, type='success')
 
 mixin fieldError(message)
     span(class="badge badge-danger")= message
+
+mixin postList(posts)
+    .list-group
+    each post in posts
+        a.list-group-item.list-group-item-action(href="/post/" + post.id)
+            img.avatar-tiny(src='/uploads/'+post.User.avatar)
+            strong #{ post.title }
+            |  on #{ moment(post.createdAt).format('DD MMM, YYYY') }

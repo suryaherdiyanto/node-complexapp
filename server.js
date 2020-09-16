@@ -4,6 +4,7 @@ const router = require('./app/route');
 const flash = require('connect-flash');
 const { validation } = require('@kodinggen/express-validator');
 const moment = require('moment');
+const markdown = require('markdown').markdown;
 
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -30,16 +31,15 @@ app.use(validation());
 // Set global variable to views
 app.use(function(req, res, next) {
 
-    res.locals = {
-        session: req.session,
-        error: req.flash('error')[0],
-        success: req.flash('success')[0],
-        validationErrors: req.validator.flashErrors(),
-        moment: moment
-    };
+    res.locals.session = req.session;
+    res.locals.error = req.flash('error')[0];
+    res.locals.success = req.flash('success')[0];
+    res.locals.moment = moment;
+    res.locals.markdown = markdown;
+
 
     next();
-})
+});
 
 app.set('view engine', 'pug');
 app.set('views', './views');

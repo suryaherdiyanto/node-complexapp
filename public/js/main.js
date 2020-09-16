@@ -5,4 +5,13 @@
             $('#avatarForm').submit();
         }
     });
+
+    $('.delete-post-button').on('click', function(e) {
+        e.preventDefault();
+
+        if (confirm('Delete this post?')) {
+            $('.delete-form').submit();
+        }
+    });
+
 })(jQuery)

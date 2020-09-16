@@ -1,0 +1,12 @@
+extends ../master
+
+block content
+    include ../partials/alert
+
+    .profile-nav.nav.nav-tabs.pt-2.mb-4
+      a.profile-nav-link.nav-item.nav-link.active(href="#") Posts: #{posts.length}
+      a.profile-nav-link.nav-item.nav-link(href="#") Followers: 3
+      a.profile-nav-link.nav-item.nav-link(href="#") Following: 2
+    
+    +postList(posts)
+      

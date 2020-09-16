@@ -1,6 +1,12 @@
 extends ../master
 
 block content
+    .d-flex.justify-content-between.pt-3.pb-3
+        a.btn.btn-info(href=`/user/${session.user.id}/posts`) 
+            i.fas.fa-chevron-left
+            | &nbsp; Back
+        a.btn.btn-success(href=`/post/${post.id}` target='_blank') View Post
+
     include ../partials/alert
 
     form(action=`/post/${post.id}/update` method='POST')

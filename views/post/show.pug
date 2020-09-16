@@ -1,6 +1,12 @@
 extends ../master
 
 block content
+
+    .d-flex.pt-3.pb-3
+        a.btn.btn-info(href=`/user/${session.user.id}/posts`)
+            i.fas.fa-chevron-left
+            | &nbsp; Back
+
     include ../partials/alert
 
     .d-flex.justify-content-between
@@ -9,8 +15,8 @@ block content
             span.pt-2
                 a.text-primary.mr-2(href=`/post/${post.id}/edit` data-toggle='tooltip' data-placement='top' title='Edit')
                     i.fas.fa-edit
-                form.delete-post-form.d-inline(action='#' method='POST')
-                    button.delete-post-button.text-danger(data-toggle='tooltip' data-placement='top' title='Delete')
+                form.delete-form.d-inline(action=`/post/${post.id}/delete` method='POST')
+                    button.delete-post-button.text-danger(type='button' data-toggle='tooltip' data-placement='top' title='Delete')
                         i.fas.fa-trash
 
     p.text-muted.small.mb-4
@@ -19,4 +25,4 @@ block content
         |       Posted by 
         a(href='#') #{user.username} 
         |  on #{moment(post.createdAt).format('MMM DD, YYYY')}
-    .body-content= post.body
+    .body-content !{markdown.toHTML(post.body)}

@@ -13,7 +13,7 @@ header.header-bar.mb-3
         .dropdown-menu(aria-labelledby="mainDropdown")
           a.dropdown-item(href="#" data-target="#avatarModal" data-toggle='modal') Change Avatar
           a.dropdown-item(href="#") Profile
-          a.dropdown-item(href="#") My Posts
+          a.dropdown-item(href=`/user/${session.user.id}/posts`) My Posts
           
       a.btn.btn-sm.btn-success.mr-2(href='/create-post') Create Post
       form.d-inline(action='/logout' method='POST')
