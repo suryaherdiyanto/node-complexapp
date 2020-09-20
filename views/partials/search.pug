@@ -1,0 +1,19 @@
+.search-overlay
+    .search-overlay-top.shadow-sm
+        .container.container--narrow
+            label.search-overlay-icon(for="live-search-field")
+                i.fas.fa-search
+            input#live-search-field.live-search-field(type="text" placeholder="What are you interested in?")
+            span.close-live-search
+                i.fas.fa-times-circle
+    .search-overlay-bottom
+        .container.container--narrow.py-3
+            .circle-loader
+            .live-search-results
+                .list-group.shadow-sm
+                    .list-group-item.active
+                        strong Search Results
+                        |  (&nbsp;
+                        span.result-count 0
+                        | items found)
+                .list-group.results

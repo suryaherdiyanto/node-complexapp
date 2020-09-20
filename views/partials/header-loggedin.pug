@@ -12,8 +12,7 @@ header.header-bar.mb-3
         img.dropdown-toggle(title='My Profile' data-placement='bottom' style='width: 32px; height: 32px; border-radius: 16px;' src='/uploads/'+session.user.avatar)
         .dropdown-menu(aria-labelledby="mainDropdown")
           a.dropdown-item(href="#" data-target="#avatarModal" data-toggle='modal') Change Avatar
-          a.dropdown-item(href="#") Profile
-          a.dropdown-item(href=`/user/${session.user.id}/posts`) My Posts
+          a.dropdown-item(href=`/user/${session.user.id}`) Profile
           
       a.btn.btn-sm.btn-success.mr-2(href='/create-post') Create Post
       form.d-inline(action='/logout' method='POST')

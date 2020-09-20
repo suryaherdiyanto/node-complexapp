@@ -17,6 +17,7 @@ const upload = multer({ storage: storage });
 const homeController = require('./controllers/homeController');
 const dashboardController = require('./controllers/dashboardController');
 const postController = require('./controllers/postController');
+const apiController = require('../app/controllers/apiController');
 const middleware = require('../app/middleware');
 
 router.get('/', homeController.homePage);
@@ -26,7 +27,7 @@ router.post('/login', homeController.login);
 
 router.get('/dashboard', dashboardController.dashboard);
 router.post('/logout', dashboardController.logout);
-router.get('/user/:id/posts', dashboardController.userPosts);
+router.get('/user/:id', dashboardController.userPosts);
 
 router.get('/profile', function(req, res) {
     res.send('This is a profile page!');
@@ -40,5 +41,7 @@ router.get('/post/:id', middleware.auth, postController.show);
 router.get('/post/:id/edit', middleware.auth, postController.edit);
 router.post('/post/:id/update', middleware.auth, postController.update);
 router.post('/post/:id/delete', middleware.auth, postController.delete);
+
+router.get('/api/search', apiController.search);
 
 module.exports = router;
