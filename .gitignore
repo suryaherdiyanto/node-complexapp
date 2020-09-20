@@ -1,3 +1,6 @@
 node_modules
 public/uploads
+public/js/bundle/main.bundle.js
+public/js/bundle/vendor.bundle.js
+public/css/bundle/main.bundle.css
 .env
