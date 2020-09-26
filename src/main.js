@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import moment from 'moment';
+import DOMPurify from 'dompurify';
 
 (function($) {
     const liveSearch = {
@@ -69,8 +70,15 @@ import moment from 'moment';
         typeOnSearchField: function() {
             this.dom.searchInput.on('keyup', (e) => {
                 let value = this.dom.searchInput.val();
-                
-                if (value !== "" && value !== this.value.previousValue) {
+
+                if (value === "") {
+                    clearTimeout(this.value.typeTimer);
+                    this.hideSearchResult();
+                    this.hideLoaderCircle();
+                    return false;
+                }
+
+                if(value !== "" && value !== this.value.previousValue) {
                     this.showLoaderCircle();
                     this.hideSearchResult();
                     clearTimeout(this.value.typeTimer);
@@ -83,9 +91,9 @@ import moment from 'moment';
                             let template = '';
 
                             result.data.forEach((item) => {
-                                template += `<a class='list-group-item' href='/post/${item.id}'>
+                                template += `<a class='list-group-item list-group-item-action' href='/post/${item.id}'>
                                     <img class='avatar-tiny' src='/uploads/${item.User.avatar}'>
-                                    <strong>${item.title}</strong>
+                                    <strong>${DOMPurify.sanitize(item.title)}</strong>
                                     <span class='text-muted small'> by ${item.User.username} on ${moment(item.createdAt).format('DD MMM, YYYY')}</span>
                                 </a>`;
                             });

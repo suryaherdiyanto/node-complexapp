@@ -25,4 +25,4 @@ block content
         |       Posted by 
         a(href='#') #{user.username} 
         |  on #{moment(post.createdAt).format('MMM DD, YYYY')}
-    .body-content !{markdown.toHTML(post.body)}
+    .body-content !{post.body}
