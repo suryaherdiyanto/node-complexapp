@@ -1,4 +1,5 @@
 const { post } = require("../route");
+const Follow = require("../models/Follow");
 
 const { Post } = require('../models').db;
 
@@ -37,8 +38,8 @@ exports.store = async function(req, res) {
 exports.show = async function(req, res) {
     try {
 
-        let post = await Post.findOne({ where: { id: req.params.id } });
-        let userPost = await post.getUser();
+        const post = await Post.findOne({ where: { id: req.params.id } });
+        const userPost = await post.getUser();
     
         return res.render('post/show', { post: post, user: userPost });
     } catch(error) {

@@ -9,7 +9,7 @@ header.header-bar.mb-3
         i.fas.fa-comment
         
       a.mr-2(id="mainDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href='#')
-        img.dropdown-toggle(title='My Profile' data-placement='bottom' style='width: 32px; height: 32px; border-radius: 16px;' src='/uploads/'+session.user.avatar)
+        img.dropdown-toggle(title='My Profile' data-placement='bottom' style='width: 32px; height: 32px; border-radius: 16px;' src=session.user.avatar ? `/uploads/${session.user.avatar}` : 'https://gravatar.com/avatar/f64fc44c03a8a7eb1d52502950879659?s=128')
         .dropdown-menu(aria-labelledby="mainDropdown")
           a.dropdown-item(href="#" data-target="#avatarModal" data-toggle='modal') Change Avatar
           a.dropdown-item(href=`/user/${session.user.id}`) Profile

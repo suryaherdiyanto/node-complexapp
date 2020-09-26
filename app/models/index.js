@@ -31,5 +31,23 @@ db['Post'].belongsTo(db['User'], {
 db['User'].hasMany(db['Post'], {
     foreignKey: 'user_id'
 });
+db['User'].belongsToMany(db['User'], {
+    through: {
+        model: db['Follow'],
+        uniqueKey: 'id'
+    },
+    as: 'Following',
+    foreignKey: 'user_id',
+    otherKey: 'follow_id'
+});
+db['User'].belongsToMany(db['User'], {
+    through: {
+        model: db['Follow'],
+        uniqueKey: 'id'
+    },
+    as: 'Followers',
+    foreignKey: 'follow_id',
+    otherKey: 'user_id'
+});
 
 module.exports = { db, sequelize, Sequelize };

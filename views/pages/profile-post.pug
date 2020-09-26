@@ -4,13 +4,26 @@ block content
     include ../partials/alert
 
     h2
-      img.avatar-small(src='/uploads/'+session.user.avatar alt="Avatar" srcset="")
-      = session.user.username
+      img.avatar-small(src='/uploads/'+visitedUser.avatar alt="Avatar" srcset="")
+      = visitedUser.username
+    if session.user.id !== visitedUser.id
+      if !hasFollow
+        form.form-inline(action=`/follow/${visitedUser.id}` method="post")
+          .d-flex.form-group.justify-content-end
+            button.btn.btn-success(type="submit")
+              | Follow 
+              i.fas.fa-user-plus
+      else
+        form.form-inline(action=`/unfollow/${visitedUser.id}` method="post")
+          .d-flex.form-group.justify-content-end
+            button.btn.btn-danger(type="submit")
+              | Unfollow 
+              i.fas.fa-user-minus
 
     .profile-nav.nav.nav-tabs.pt-2.mb-4
       a.profile-nav-link.nav-item.nav-link.active(href="#") Posts: #{posts.length}
-      a.profile-nav-link.nav-item.nav-link(href="#") Followers: 3
-      a.profile-nav-link.nav-item.nav-link(href="#") Following: 2
+      a.profile-nav-link.nav-item.nav-link(href="#") Followers: #{visitedUserFollowers.length}
+      a.profile-nav-link.nav-item.nav-link(href="#") Following: #{visitedUserFollowing.length}
     
     +postList(posts)
       

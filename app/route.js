@@ -18,6 +18,7 @@ const homeController = require('./controllers/homeController');
 const dashboardController = require('./controllers/dashboardController');
 const postController = require('./controllers/postController');
 const apiController = require('../app/controllers/apiController');
+const followController = require('../app/controllers/followConftroller');
 const middleware = require('../app/middleware');
 
 router.get('/', homeController.homePage);
@@ -41,6 +42,9 @@ router.get('/post/:id', middleware.auth, postController.show);
 router.get('/post/:id/edit', middleware.auth, postController.edit);
 router.post('/post/:id/update', middleware.auth, postController.update);
 router.post('/post/:id/delete', middleware.auth, postController.delete);
+
+router.post('/follow/:userId', middleware.auth, followController.follow);
+router.post('/unfollow/:userId', middleware.auth, followController.unfollow);
 
 router.get('/api/search', apiController.search);
 
