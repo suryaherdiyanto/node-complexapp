@@ -39,7 +39,7 @@ exports.login = async function(req, res) {
 
     req.session.user = user.toJSON();
     req.session.save(() => {
-        returnres.redirect('/dashboard');
+        return res.redirect('/dashboard');
     });
 }
 
