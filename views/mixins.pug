@@ -10,6 +10,6 @@ mixin postList(posts)
     .list-group
     each post in posts
         a.list-group-item.list-group-item-action(href="/post/" + post.id)
-            img.avatar-tiny(src='/uploads/'+post.User.avatar)
+            img.avatar-tiny(src=(post.User.avatar) ? '/uploads/'+post.User.avatar : 'https://gravatar.com/avatar/f64fc44c03a8a7eb1d52502950879659?s=128')
             strong #{ post.title }
             |  on #{ moment(post.createdAt).format('DD MMM, YYYY') }

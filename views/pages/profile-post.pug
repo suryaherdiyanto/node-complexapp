@@ -4,7 +4,7 @@ block content
     include ../partials/alert
 
     h2
-      img.avatar-small(src='/uploads/'+visitedUser.avatar alt="Avatar" srcset="")
+      img.avatar-small(src=(visitedUser.avatar) ? '/uploads/'+visitedUser.avatar : 'https://gravatar.com/avatar/f64fc44c03a8a7eb1d52502950879659?s=128' alt="Avatar" srcset="")
       = visitedUser.username
     if session.user.id !== visitedUser.id
       if !hasFollow

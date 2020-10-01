@@ -21,7 +21,7 @@ block content
 
     p.text-muted.small.mb-4
         a(href=`/user/${user.id}`)
-            img.avatar-tiny(src='/uploads/'+user.avatar)
+            img.avatar-tiny(src=(user.avatar) ? '/uploads/'+user.avatar : 'https://gravatar.com/avatar/f64fc44c03a8a7eb1d52502950879659?s=128')
         |       Posted by 
         a(href=`/user/${user.id}`) #{user.username} 
         |  on #{moment(post.createdAt).format('MMM DD, YYYY')}

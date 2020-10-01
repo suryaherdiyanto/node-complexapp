@@ -21,9 +21,7 @@ exports.login = async function(req, res) {
 
     const { username, password } = req.body;
 
-    console.time('User query time');
     user = await User.findOne({ where: { username: username } });
-    console.timeEnd('User query time');
 
 
     if (!user) {
@@ -40,8 +38,9 @@ exports.login = async function(req, res) {
     }
 
     req.session.user = user.toJSON();
-    console.timeEnd('Login time');
-    res.redirect('/dashboard');
+    req.session.save(() => {
+        returnres.redirect('/dashboard');
+    });
 }
 
 exports.register = async function(req, res) {

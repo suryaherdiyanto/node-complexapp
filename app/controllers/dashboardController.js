@@ -11,7 +11,9 @@ exports.dashboard = function(req, res) {
 
 exports.logout = function(req, res) {
     req.session.destroy();
-    res.redirect('/');
+    req.session.save(() => {
+        return res.redirect('/');
+    });
 }
 
 exports.userPosts = async function(req, res) {
