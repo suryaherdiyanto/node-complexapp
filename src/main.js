@@ -92,7 +92,7 @@ import DOMPurify from 'dompurify';
 
                             result.data.forEach((item) => {
                                 template += `<a class='list-group-item list-group-item-action' href='/post/${item.id}'>
-                                    <img class='avatar-tiny' src='/uploads/${item.User.avatar}'>
+                                    <img class='avatar-tiny' src='${(item.User.avatar) ? `/uploads/${item.User.avatar}` : 'https://gravatar.com/avatar/f64fc44c03a8a7eb1d52502950879659?s=128'}'>
                                     <strong>${DOMPurify.sanitize(item.title)}</strong>
                                     <span class='text-muted small'> by ${item.User.username} on ${moment(item.createdAt).format('DD MMM, YYYY')}</span>
                                 </a>`;
