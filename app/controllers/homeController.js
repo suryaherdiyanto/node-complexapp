@@ -47,21 +47,6 @@ exports.register = async function(req, res) {
 
     try {
         let { username, email, password } = req.body;
-    
-        const validator = req.validator.build({ username, email, password }, {
-            'username': 'required|string',
-            'email': 'required|string|email',
-            'password': 'required|min:6'
-        });
-    
-        const validatorFail = await validator.validate();
-        if (validatorFail) {
-            req.flash('inputs', { username, email });
-            req.session.save(() => {
-
-                return res.redirect('/');
-            });
-        }
 
         bcrypt.genSaltSync(10);
         password = bcrypt.hashSync(password);

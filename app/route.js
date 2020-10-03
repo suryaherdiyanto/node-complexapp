@@ -20,10 +20,11 @@ const postController = require('./controllers/postController');
 const apiController = require('../app/controllers/apiController');
 const followController = require('../app/controllers/followConftroller');
 const middleware = require('../app/middleware');
+const validateRequest = require('./validateRequest');
 
 router.get('/', homeController.homePage);
 router.get('/test', homeController.test);
-router.post('/register-user', homeController.register);
+router.post('/register-user', validateRequest.register, homeController.register);
 router.post('/login', homeController.login);
 
 router.get('/dashboard', dashboardController.dashboard);
@@ -37,7 +38,7 @@ router.get('/profile', function(req, res) {
 router.post('/save-avatar', upload.single('avatar'), dashboardController.saveAvatar);
 
 router.get('/create-post', middleware.auth, postController.create);
-router.post('/create-post', middleware.auth, postController.store);
+router.post('/create-post', middleware.auth, validateRequest.createPost, postController.store);
 router.get('/post/:id', middleware.auth, postController.show);
 router.get('/post/:id/edit', middleware.auth, postController.edit);
 router.post('/post/:id/update', middleware.auth, postController.update);

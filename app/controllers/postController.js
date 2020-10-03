@@ -13,19 +13,6 @@ exports.store = async function(req, res) {
 
         const { title, body } = req.body;
     
-        const validator = req.validator.build({ title, body }, {
-            'title': 'required|string',
-            'body': 'required|string'
-        });
-        const validatorFail = await validator.validate();
-    
-        if (validatorFail) {
-            req.flash('inputs', { title, body });
-            req.session.save(() => {
-                return res.redirect('/create-post');
-            });
-        }
-    
         const post = await Post.create({ title: title, body: body, user_id: req.session.user.id });
         req.flash('success', 'Post has been created!');
         req.session.save(() => res.redirect(`/post/${post.id}`));
