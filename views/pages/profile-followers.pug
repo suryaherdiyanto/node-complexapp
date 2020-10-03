@@ -21,9 +21,8 @@ block content
               i.fas.fa-user-minus
 
     .profile-nav.nav.nav-tabs.pt-2.mb-4
-      a.profile-nav-link.nav-item.nav-link.active(href=`/user/${visitedUser.id}`) Posts: #{posts.length}
-      a.profile-nav-link.nav-item.nav-link(href=`/user/${visitedUser.id}/followers`) Followers: #{followersCount}
+      a.profile-nav-link.nav-item.nav-link(href=`/user/${visitedUser.id}`) Posts: #{postCount}
+      a.profile-nav-link.nav-item.nav-link.active(href=`/user/${visitedUser.id}/followers`) Followers: #{followersCount}
       a.profile-nav-link.nav-item.nav-link(href=`/user/${visitedUser.id}/following`) Following: #{followingCount}
     
-    +postList(posts)
-      
+    +userList(followers)

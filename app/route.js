@@ -29,7 +29,10 @@ router.post('/login', homeController.login);
 
 router.get('/dashboard', dashboardController.dashboard);
 router.post('/logout', dashboardController.logout);
+
 router.get('/user/:id', dashboardController.userPosts);
+router.get('/user/:id/followers', middleware.auth, followController.followersScreen);
+router.get('/user/:id/following', middleware.auth, followController.followingScreen);
 
 router.get('/profile', function(req, res) {
     res.send('This is a profile page!');

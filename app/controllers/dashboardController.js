@@ -31,8 +31,8 @@ exports.userPosts = async function(req, res) {
         const visitedUser = await User.findOne({
             where: { id: req.params.id }
         });
-        const visitedUserFollowers = await visitedUser.getFollowers();
-        const visitedUserFollowing = await visitedUser.getFollowing();
+        const visitedUserFollowers = await visitedUser.countFollowers();
+        const visitedUserFollowing = await visitedUser.countFollowing();
 
         const follow = await Follow.findOne({
             where: {
@@ -45,7 +45,7 @@ exports.userPosts = async function(req, res) {
             hasFollow = true;
         }
 
-        return res.render('pages/profile-post', { posts: posts, visitedUser: visitedUser, hasFollow, visitedUserFollowers: visitedUserFollowers, visitedUserFollowing: visitedUserFollowing });
+        return res.render('pages/profile-post', { posts: posts, visitedUser: visitedUser, hasFollow, followersCount: visitedUserFollowers, followingCount: visitedUserFollowing });
     } catch(error) {
         return res.end('Opps something went wrong!, ' + error);
     }
