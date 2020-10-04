@@ -17,7 +17,6 @@ exports.test = function(req, res) {
 }
 
 exports.login = async function(req, res) {
-    console.time('Login time');
 
     const { username, password } = req.body;
 
@@ -28,19 +27,24 @@ exports.login = async function(req, res) {
         req.flash('error', 'Could not find user with that username');
 
         req.session.save(() => {
-            res.redirect('/');
+            return res.redirect('/');
         })
+    } else {
+        if (!bcrypt.compareSync(password, user.password)) {
+            req.flash('error', 'Invalid credentials!');
+            req.session.save(() => {
+                return res.redirect('/');
+            });
+        } else {
+            
+            req.session.user = user.toJSON();
+            req.session.save(() => {
+                return res.redirect('/dashboard');
+            });
+        }
     }
 
-    if (!bcrypt.compareSync(password, user.password)) {
-        req.flash('error', 'Invalid credentials!');
-        res.redirect('/');
-    }
 
-    req.session.user = user.toJSON();
-    req.session.save(() => {
-        return res.redirect('/dashboard');
-    });
 }
 
 exports.register = async function(req, res) {

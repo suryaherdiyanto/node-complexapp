@@ -10,7 +10,7 @@ exports.dashboard = function(req, res) {
 }
 
 exports.logout = function(req, res) {
-    req.session.user = '';
+    req.session.user = null;
     req.session.save(() => {
         return res.redirect('/');
     });
