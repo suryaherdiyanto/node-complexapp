@@ -1,12 +1,34 @@
 const session = require('express-session');
+const {Op} = require('sequelize');
 
 const { User, Post, Follow } = require('../models').db;
 
-exports.dashboard = function(req, res) {
-    if (!req.session.user) {
-        res.redirect('/');
+exports.dashboard = async function(req, res) {
+    try {
+
+        let following = await Follow.findAll({
+            where: {
+                user_id: req.session.user.id
+            },
+            raw: true
+        });
+    
+        let posts = await Post.findAll({
+            where: {
+                user_id: {
+                    [Op.in]: [...following.map(item => item.follow_id)]
+                }
+            },
+            include: User,
+            order: [
+                ['createdAt', 'DESC']
+            ]
+        });
+    
+        res.render('pages/dashboard', { feeds: posts });
+    } catch(error) {
+        res.end(`Somthing went wrong, ${error} `);
     }
-    res.render('pages/dashboard')
 }
 
 exports.logout = function(req, res) {

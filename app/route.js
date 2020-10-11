@@ -27,8 +27,8 @@ router.get('/test', homeController.test);
 router.post('/register-user', validateRequest.register, homeController.register);
 router.post('/login', homeController.login);
 
-router.get('/dashboard', dashboardController.dashboard);
-router.post('/logout', dashboardController.logout);
+router.get('/dashboard', middleware.auth, dashboardController.dashboard);
+router.post('/logout', middleware.auth, dashboardController.logout);
 
 router.get('/user/:id', dashboardController.userPosts);
 router.get('/user/:id/followers', middleware.auth, followController.followersScreen);

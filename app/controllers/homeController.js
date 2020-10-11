@@ -2,9 +2,6 @@ const { User } = require('../models').db;
 const bcrypt = require('bcryptjs');
 
 exports.homePage = function(req, res) {
-    if (req.session.user) {
-        return res.redirect('/dashboard');
-    }
 
     return res.render('pages/home', { inputs: req.flash('inputs') });
 }
