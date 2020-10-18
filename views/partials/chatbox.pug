@@ -1,0 +1,25 @@
+#chat-wrapper.chat-wrapper.shadow.border-top.border-left.border-right
+  .chat-title-bar
+    | Chat 
+    span.chat-title-bar-close
+      i.fas.fa-times-circle
+  #chat.chat-log
+    // template for your own message
+    .chat-self
+      .chat-message
+        .chat-message-inner
+          | Hello, how are you?
+      img.chat-avatar.avatar-tiny(src='https://gravatar.com/avatar/f64fc44c03a8a7eb1d52502950879659?s=128')
+    // end template
+    // template for messages from others
+    .chat-other
+      a(href='#')
+        img.avatar-tiny(src='https://gravatar.com/avatar/b9216295c1e3931655bae6574ac0e4c2?s=128')
+      .chat-message
+        .chat-message-inner
+          a(href='#')
+            strong barksalot:
+          |           I am doing well. How about you?
+    // end template
+  form#chatForm.chat-form.border-top
+    input#chatField.chat-field(type='text' placeholder='Type a message…' autocomplete='off')
