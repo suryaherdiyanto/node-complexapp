@@ -30,6 +30,7 @@
     "mysql2": "^2.1.0",
     "pug": "^3.0.0",
     "sequelize": "^6.3.3",
+    "socket.io": "^2.3.0",
     "webpack-merge": "^5.1.4"
   },
   "devDependencies": {
