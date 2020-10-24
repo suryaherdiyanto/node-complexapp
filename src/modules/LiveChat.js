@@ -11,6 +11,7 @@ export default {
         chatLog: $('#chat')
     },
     io: null,
+    user: {},
     showChatBox: function() {
         this.dom.chatBox.addClass('chat--visible');
     },
@@ -63,15 +64,16 @@ export default {
             this.scrollToBottom();
         })
     },
-    appendChatSelf: function(text,) {
+    appendChatSelf: function(text) {
 
-        // let avatar = user.avatar ? `/uploads/${user.avatar}` : 'https://gravatar.com/avatar/f64fc44c03a8a7eb1d52502950879659?s=128';
+        let avatar = this.user.avatar ? `/uploads/${this.user.avatar}` : 'https://gravatar.com/avatar/f64fc44c03a8a7eb1d52502950879659?s=128';
 
         this.dom.chatLog.append(`
             <div class="chat-self">
                 <div class="chat-message">
                     <div class="chat-message-inner">${DOMPurify.sanitize(text)}</div>
                 </div>
+                <img class="avatar-tiny" src="${avatar}"></a>
             </div> 
         `);
     },
@@ -97,7 +99,7 @@ export default {
         this.openConnection();
 
         this.io.on('joinRoom', (data) => {
-            console.log(data.message)
+            this.user.avatar = data.user.avatar;
         });
 
         this.io.on('receiveMessage', (data) => {

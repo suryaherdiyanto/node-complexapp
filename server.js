@@ -64,15 +64,17 @@ sequelize.authenticate().then((error) => {
         console.log('a client connected!');
 
         if (socket.request.session) {
-            socket.join('public', () => {
 
-                socket.broadcast.to('public').emit('joinRoom', { user: socket.request.session.user, meessage: `${socket.request.session.user.username} joined chat room`});
-    
-            });
-    
-            socket.on('sendMessage', (data) => {
-                socket.broadcast.to('public').emit('receiveMessage', { user: socket.request.session.user, message: data.message });
-            });
+            if (socket.request.session.user) {
+                
+                socket.join('public');
+
+                socket.emit('joinRoom', { user: socket.request.session.user });
+        
+                socket.on('sendMessage', (data) => {
+                    socket.broadcast.to('public').emit('receiveMessage', { user: socket.request.session.user, message: data.message });
+                });
+            }
         }
 
     });
