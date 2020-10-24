@@ -32,6 +32,7 @@ app.locals.rootPath = __dirname;
 app.use(sessionOptions);
 app.use(flash());
 app.use(express.static('public'));
+app.use('/dist', express.static('dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(validation());
@@ -44,6 +45,15 @@ app.use(function(req, res, next) {
     res.locals.success = req.flash('success')[0];
     res.locals.moment = moment;
     res.locals.markdown = markdown;
+
+    // res.locals.mix = function(name, type) {
+    //     if (type === 'css') {
+    //         if (process.env == 'production') {
+    //             return `/css/bundle/${name}.bundle.css`; 
+    //         }
+    //         return `/css/bundle/${name}.bundle.css`;
+    //     } else if()
+    // }
 
 
     next();
@@ -59,6 +69,8 @@ console.log(process.env.NODE_ENV);
 
 sequelize.authenticate().then((error) => {
     if (error) throw error;
+
+    console.log(__webpack_hash__);
 
     io.on('connection', function(socket) {
         console.log('a client connected!');

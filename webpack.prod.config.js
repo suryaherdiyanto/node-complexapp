@@ -4,12 +4,13 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MinimizerCssPlugin = require('optimize-css-assets-webpack-plugin');
+const { DumpMetaPlugin } = require('dumpmeta-webpack-plugin');
 
 module.exports = merge(common, {
     mode: 'production',
     output: {
-        path: path.resolve(__dirname, 'public', 'js', 'bundle'),
-        filename: '[name].[contenthash].bundle.js'
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'js/bundle/[name].[hash].bundle.js'
     },
     module: {
         rules: [
@@ -27,7 +28,13 @@ module.exports = merge(common, {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: '../../css/bundle/[name].[contenthash].css'
+            filename: 'css/bundle/[name].[hash].css'
+        }),
+        new DumpMetaPlugin({
+            filename: 'dist/meta.json',
+            prepare: (stats) => ({
+                hash: stats.hash
+            })
         })
     ]
 });
