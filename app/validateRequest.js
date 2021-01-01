@@ -1,3 +1,5 @@
+const homeController = require('../app/controllers/homeController');
+
 exports.register = async function(req, res, next) {
     let { username, email, password } = req.body;
     
@@ -7,14 +9,17 @@ exports.register = async function(req, res, next) {
         'password': 'required|min:6'
     });
 
-    const validatorFail = await validator.validate();
-    if (validatorFail) {
-        req.flash('inputs', { username, email });
-        req.session.save(() => {
+    const validation = await validator.validate();
 
-            return res.redirect('/');
+    if (validation.status === 'error') {
+        req.flash('inputs', { username, email });
+        req.flash('validationErrors', validation.data);
+
+        req.session.save(() => {
+            res.redirect('/');
         });
     } else {
+        console.log(validation.data);
         next();
     }
 }
@@ -26,14 +31,16 @@ exports.createPost = async function(req, res, next) {
         'title': 'required|string',
         'body': 'required|string'
     });
-    const validatorFail = await validator.validate();
+    const validation = await validator.validate();
 
-    if (validatorFail) {
+    if (validation) {
         req.flash('inputs', { title, body });
+        req.flash('validationErrors', validation.data);
         req.session.save(() => {
-            return res.redirect('/create-post');
+            res.redirect('/create-post');
         });
     } else {
+        req.body = validation.data;
         next();
     }
 }

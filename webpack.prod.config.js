@@ -28,7 +28,7 @@ module.exports = merge(common, {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'css/bundle/[name].[hash].css'
+            filename: 'css/bundle/[name].[hash].bundle.css'
         }),
         new DumpMetaPlugin({
             filename: 'dist/meta.json',

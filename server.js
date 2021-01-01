@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const { sequelize } = require('./app/models');
+const { sequelize } = require('./app/models/index');
+const fs = require('fs');
+const path = require('path');
 
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
@@ -46,14 +48,18 @@ app.use(function(req, res, next) {
     res.locals.moment = moment;
     res.locals.markdown = markdown;
 
-    // res.locals.mix = function(name, type) {
-    //     if (type === 'css') {
-    //         if (process.env == 'production') {
-    //             return `/css/bundle/${name}.bundle.css`; 
-    //         }
-    //         return `/css/bundle/${name}.bundle.css`;
-    //     } else if()
-    // }
+    res.locals.bundle = function(name, type) {
+        let metaFile = fs.readFileSync(path.resolve(__dirname, 'dist') + '/meta.json');
+        let hash = JSON.parse(metaFile).hash;
+
+        if (!hash || process.env.NODE_ENV != 'production') {
+            return `/dist/${type}/bundle/${name}.bundle.${type}`;
+        }
+
+        if (process.env.NODE_ENV == 'production') {
+            return `/dist/${type}/bundle/${name}.${hash}.bundle.${type}`;
+        }
+    }
 
 
     next();
@@ -64,13 +70,9 @@ app.set('views', './views');
 
 app.use('/', router);
 
-console.log(process.env.NODE_ENV);
-
 
 sequelize.authenticate().then((error) => {
     if (error) throw error;
-
-    console.log(__webpack_hash__);
 
     io.on('connection', function(socket) {
         console.log('a client connected!');

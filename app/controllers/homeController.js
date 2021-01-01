@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 exports.homePage = function(req, res) {
 
-    return res.render('pages/home', { inputs: req.flash('inputs') });
+    return res.render('pages/home', { inputs: req.flash('inputs'), validationErrors: req.flash('validationErrors')[0] });
 }
 
 exports.test = function(req, res) {

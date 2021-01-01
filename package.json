@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
-    "@kodinggen/express-validator": "^1.0.1",
+    "@kodinggen/express-validator": "^1.0.3",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.5.2",
     "connect-flash": "^0.1.1",
